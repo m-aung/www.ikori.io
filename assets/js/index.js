@@ -1,6 +1,5 @@
 class UI {
   static getMessages() {
-    console.log('in getMessages');
     fetch('/')
       .then((data) => {
         console.log('GET DATA', data.rows);
