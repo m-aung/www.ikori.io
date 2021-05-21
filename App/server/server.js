@@ -8,7 +8,7 @@ require('dotenv').config();
 
 /* ---------------------------- Global Variables ---------------------------- */
 
-const PORT = '3434';
+const PORT = 'https://m-aung.github.io/www.ikori.io/'//'3434';
 const app = express();
 const URI = process.env.MONGO_URI;
 //connection to database
