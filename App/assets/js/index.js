@@ -1,4 +1,4 @@
-import bcrypt from 'bcrypt'
+const bcrypt = require('bcrypt');
 const webhook = 'https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/ikori-chat-app-sbuho/service/Ikori/incoming_webhook'
 const saltRounds = 12;
 class UI {
