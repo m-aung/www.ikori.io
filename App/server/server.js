@@ -1,8 +1,8 @@
 // importing modules
 const express = require('express');
 const path = require('path');
-const messageController = require('../server/controllers/messageController');
-const authController = require('../server/controllers/authController');
+const messageController = require('./controllers/messageController');
+const authController = require('./controllers/authController');
 const mongoose = require('mongoose');
 require('dotenv').config();
 
