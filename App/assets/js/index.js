@@ -1,7 +1,7 @@
 console.log('from index.js')
 class UI {
   static getMessages() {
-    fetch('/')
+    fetch('/www.ikori.io/')
       .then((data) => {
         console.log('GET DATA', data.rows);
         if (data.rows) {
@@ -47,7 +47,7 @@ class UI {
   }
 
   static deleteMessage(message) {
-    fetch(`/:${message}`, {
+    fetch(`/www.ikori.io/:${message}`, {
       method: 'DELETE',
       body: JSON.stringify({ message: message }),
       headers: { 'Content-Type': 'application/json' },
