@@ -7,7 +7,8 @@ const config = {
   // the output bundle won't be optimized for production but suitable for development
   mode: 'development',
   // the app entry point is /src/index.js
-  entry: path.resolve(__dirname, 'index.js'),
+  // entry: path.resolve(__dirname, '/views/index.js'),
+  entry: '/assets/js/index.js',
   output: {
     // the output of the webpack build will be in /dist directory
     path: path.resolve(__dirname, 'dist'),
@@ -44,7 +45,8 @@ const config = {
   // add a custom index.html as the template
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, 'index.html'),
+      // template: path.resolve(__dirname, 'index.html'),
+      template: '/views/index.html',
       filename: 'index.html',
       inject: 'body'
     }),
