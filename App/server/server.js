@@ -1,14 +1,24 @@
 // importing modules
-const express = require('express');
-const path = require('path');
-const messageController = require('./controllers/messageController');
-const authController = require('./controllers/authController');
-const mongoose = require('mongoose');
-require('dotenv').config();
+// const express = require('express');
+import express from 'express'
+// const path = require('path');
+import path from 'path';
+import mongoose from 'mongoose';
+import dotenv from 'dotenv'
 
+import messageController from './controllers/messageController.js';
+import authController from './controllers/authController.js'
+
+// const messageController = require('./controllers/messageController');
+// const authController = require('./controllers/authController');
+// const mongoose = require('mongoose');
+// require('dotenv').config();
+
+dotenv.config();
+const __dirname = path.resolve();
 /* ---------------------------- Global Variables ---------------------------- */
 
-const PORT = 'https://m-aung.github.io/www.ikori.io/'//'3434';
+const PORT = '3434';
 const app = express();
 const URI = process.env.MONGO_URI;
 //connection to database
@@ -34,7 +44,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, '../assets/')));
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '../views/index.html'));
+  res.sendFile(path.join(__dirname, '../../index.html'));
 });
 
 app.delete(
@@ -60,4 +70,4 @@ app.post('/', messageController.postMessage, (req, res) => {
 app.listen(PORT);
 
 // exporting app
-module.export = app;
+export default app;

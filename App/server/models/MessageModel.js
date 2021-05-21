@@ -1,5 +1,8 @@
-const mongoose = require('mongoose');
-require('dotenv').config();
+// const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+// require('dotenv').config();
+import dotenv from 'dotenv'
+dotenv.config()
 
 // v-- REPLACE THE EMPTY STRING WITH YOUR LOCAL/MLAB/ELEPHANTSQL URI
 const myURI = '';
@@ -11,4 +14,5 @@ const messageSchema = new mongoose.Schema({
   created_at: { type: Date, default: Date.now },
 });
 
-module.exports = mongoose.model('Message', messageSchema); // <-- export your model
+const message = mongoose.model('Message', messageSchema); // <-- export your model
+export default message;

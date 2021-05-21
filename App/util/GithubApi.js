@@ -1,4 +1,6 @@
-var request = require('request');
+// var request = require('request');
+import request from 'request';
+
 
 function GithubApi(options) {
   this.host = 'https://api.github.com';

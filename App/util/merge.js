@@ -3,7 +3,8 @@
 * called automatically on a pull request by the .travis.yml file.
 */
 
-const path = require('path');
+// const path = require('path');
+import path from 'path'
 const GithubApi = require('./GithubApi');
 const commit = process.env.TRAVIS_COMMIT;
 const pull = process.env.TRAVIS_PULL_REQUEST;

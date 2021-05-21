@@ -1,5 +1,6 @@
-const message = require('../models/MessageModel');
-module.exports = {
+// const message = require('../models/MessageModel');
+import message from '../models/MessageModel.js';
+const messageController = {
   // star
   // posting message
   postMessage(req, res, next) {
@@ -36,3 +37,4 @@ module.exports = {
       .catch((err) => console.log('deletemessage Controller:', err));
   },
 };
+export default messageController
