@@ -1,15 +1,25 @@
+import URL from '../../server/services/http.js'
+import bcrypt from 'bcrypt'
+
+const saltRounds = 12;
 class UI {
   static getMessages() {
-    fetch('/www.ikori.io/')
+    const url = `${URL}/messages?page=${page}`
+    fetch(url)
       .then((data) => {
         console.log('GET DATA', data.rows);
         if (data.rows) {
-          data.rows.forEach((message) => UI.displayMessages(message.message));
+          data.rows.forEach((list) => UI.displayMessages(list.messages));
         }
       })
       .catch((err) => console.log('get message: ', err));
   }
-
+  // {
+  //   messages: messageList,
+  //   page: page.toString(),
+  //   entries_per_page: messagesPerPage.toString(),
+  //   total_results: messageList.length.toString(),
+  // };
   static displayMessages(message, id = Math.floor(Math.random() * 1000)) {
     console.log('in addMessages');
     const list = document.querySelector('#message-list');
@@ -34,9 +44,16 @@ class UI {
       return;
     }
     this.displayMessages(message);
-    fetch('/', {
+
+    const hashedPassword;
+    bcrypt.hash(password, saltRounds, (err, hash) => {
+      // Now we can store the password hash in db.
+      hashedPassword = hash
+    });
+    const url = `${URL}/messages`;
+    fetch(url, {
       method: 'POST',
-      body: JSON.stringify({ message: message, password: password }),
+      body: JSON.stringify({ message: message, password: hashedPassword }),
       headers: { 'Content-Type': 'application/json' },
     })
       .then((data) => {
@@ -46,7 +63,8 @@ class UI {
   }
 
   static deleteMessage(message) {
-    fetch(`/www.ikori.io/:${message}`, {
+    const url = `${URL}/messages`;
+    fetch(url, {
       method: 'DELETE',
       body: JSON.stringify({ message: message }),
       headers: { 'Content-Type': 'application/json' },
@@ -60,6 +78,7 @@ class UI {
 
 document.addEventListener('DOMContentLoaded', () => {
   console.log('DOM is loaded!')
+  // const needUpdate = true;
   // get messages
   UI.getMessages();
   // auto reload
