@@ -1,3 +1,4 @@
+console.log('from index.js')
 class UI {
   static getMessages() {
     fetch('/')
