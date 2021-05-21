@@ -1,10 +1,9 @@
-import URL from '../../server/services/http.js'
 import bcrypt from 'bcrypt'
-
+const webhook = 'https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/ikori-chat-app-sbuho/service/Ikori/incoming_webhook'
 const saltRounds = 12;
 class UI {
   static getMessages() {
-    const url = `${URL}/messages?page=${page}`
+    const url = `${webhook}/messages?page=${page}`
     fetch(url)
       .then((data) => {
         console.log('GET DATA', data.rows);
@@ -50,7 +49,7 @@ class UI {
       // Now we can store the password hash in db.
       hashedPassword = hash
     });
-    const url = `${URL}/messages`;
+    const url = `${webhook}/messages`;
     fetch(url, {
       method: 'POST',
       body: JSON.stringify({ message: message, password: hashedPassword }),
@@ -63,7 +62,7 @@ class UI {
   }
 
   static deleteMessage(message) {
-    const url = `${URL}/messages`;
+    const url = `${webhook}/messages`;
     fetch(url, {
       method: 'DELETE',
       body: JSON.stringify({ message: message }),
