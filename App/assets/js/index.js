@@ -59,6 +59,7 @@ class UI {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  console.log('DOM is loaded!')
   // get messages
   UI.getMessages();
   // auto reload
