@@ -1,7 +1,7 @@
 console.log('from index.js')
 class UI {
   static getMessages() {
-    fetch('/www.ikori.io/')
+    fetch('https://m-aung.github.io/www.ikori.io/')
       .then((data) => {
         console.log('GET DATA', data.rows);
         if (data.rows) {
