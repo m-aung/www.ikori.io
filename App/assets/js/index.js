@@ -44,7 +44,7 @@ class UI {
     }
     this.displayMessages(message);
 
-    const hashedPassword;
+    let hashedPassword;
     bcrypt.hash(password, saltRounds, (err, hash) => {
       // Now we can store the password hash in db.
       hashedPassword = hash
