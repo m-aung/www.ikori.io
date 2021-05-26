@@ -13,16 +13,39 @@ const hashCode = (str) => {
   return hash;
 };
 
-const loadXMLDoc = () =>{
-  var xhttp = new XMLHttpRequest();
+const loadMessages = () =>{
+  const xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function ()  {
     if (this.readyState == 4 && this.status == 200) {
-      document.getElementById("test").innerHTML =
-      this.responseText;
+      // document.getElementById("test").innerHTML =
+      // this.responseText;
+      console.log('response: ', this.response)
+      const data = JSON.parse(this.response)
+      console.log('data: ', data)
+      console.log('type of data: ', typeof data)
+      data["messages"].forEach((message,index) => {
+        // console.log(typeof index.toString())
+        // document.getElementById('message-list'). += `${message['message']} \r\n`
+        const newLine = document.createElement('div')
+        const att = document.createAttribute("class")
+        att.value = 'message'
+        newLine.setAttributeNode(att)
+        const newText = document.createTextNode(`${message['message']}`)
+        // document.getElementById('message-list').append(newLine)
+        const list = document.getElementById('message-list')
+        list.appendChild(newLine).appendChild(newText)
+        // document.createElement('br')
+      })
     }
   };
-  xhttp.open("GET", "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/ikori-chat-app-sbuho/service/Ikori/incoming_webhook/messages", true);
+  xhttp.open('GET', `${webhook}/messages`, true);
   xhttp.send();
+}
+const postMessage = () => {
+  const xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+
+  }
 }
 
 /*
@@ -106,9 +129,9 @@ document.addEventListener('DOMContentLoaded', () => {
   console.log('DOM is loaded!')
   // const needUpdate = true;
   // get messages
-  loadXMLDoc();
+  loadMessages();
   // auto reload
-  setInterval(loadXMLDoc(), 2000);
+  // setInterval(loadMessages(), 2000);
   // add messages
   // document.getElementById('save').addEventListener('click', (e) => {
   //   e.preventDefault();

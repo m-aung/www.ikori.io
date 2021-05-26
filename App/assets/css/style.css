@@ -50,12 +50,12 @@ input {
   padding: 25px 20px 40px;
 }
 
-ul {
+.message-list {
   position: relative;
   margin-top: 2em;
 }
 
-li {
+.message {
   list-style: none;
   border: 1px solid #dfdfdf;
   width: 100%;
