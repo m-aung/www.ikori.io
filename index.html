@@ -7,16 +7,22 @@
   <script src="./App/assets/js/index.js"></script>
 </head>
 <body>
-  <div id="container"></div>
-  <h1>Message Board</h1>
-  <div id="new-message">
-    <div class="row">
-      <input id="pass" placeholder="Password" type="password"></input>
-      <button id="save">Save</button>
-    <div>
-    <textarea id="desc" placeholder="New message here..."></textarea>
-  </div>
+  <div id="container">
+  <div class= 'header'>Message Board</div>
+    <div id = 'nav-bar'>
+      <ul>
+        <li>Home</li>
+        <li>Login</li>
+        <li>About</li>
+      </ul>
+    </div>
+      <div class = 'userInput'>
+        <textarea id="desc" placeholder="New message here..."></textarea>
+        <!-- <input id="pass" placeholder="Password" type="password"></input> -->
+        <button id="save">Save</button>
+      </div>
   <div id="message-list"></div>
-  </div>
+</div>
+<footer id= 'footer'>&#169; copyright 2021 myo aung </footer>
 </body>
 </html>

@@ -1,7 +1,7 @@
 // const bcrypt = require('bcrypt');
 const webhook = 'https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/ikori-chat-app-sbuho/service/Ikori/incoming_webhook'
 const saltRounds = 12;
-
+const page = 0;
 const hashCode = (str) => {
   let hash = 0, i, chr;
   if (str.length === 0) return hash;
@@ -17,28 +17,20 @@ const loadMessages = () =>{
   const xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function ()  {
     if (this.readyState == 4 && this.status == 200) {
-      // document.getElementById("test").innerHTML =
-      // this.responseText;
       console.log('response: ', this.response)
-      const data = JSON.parse(this.response)
-      console.log('data: ', data)
-      console.log('type of data: ', typeof data)
+      const data = JSON.parse(this.response) // parse it into json obj
       data["messages"].forEach((message,index) => {
-        // console.log(typeof index.toString())
-        // document.getElementById('message-list'). += `${message['message']} \r\n`
-        const newLine = document.createElement('div')
-        const att = document.createAttribute("class")
-        att.value = 'message'
-        newLine.setAttributeNode(att)
-        const newText = document.createTextNode(`${message['message']}`)
-        // document.getElementById('message-list').append(newLine)
-        const list = document.getElementById('message-list')
-        list.appendChild(newLine).appendChild(newText)
-        // document.createElement('br')
+        const newLine = document.createElement('div') // create a new div element
+        const att = document.createAttribute("class") // create a new attritube
+        att.value = 'message' // name the attribute
+        newLine.setAttributeNode(att) // set attritube to div node
+        const newText = document.createTextNode(`${message['message']}`) // add text to the current node
+        const list = document.getElementById('message-list') // get message div from Dom
+        list.appendChild(newLine).appendChild(newText) // append the new message to message div as a child
       })
     }
   };
-  xhttp.open('GET', `${webhook}/messages`, true);
+  xhttp.open('GET', `${webhook}/messages?${page}`, true);
   xhttp.send();
 }
 const postMessage = () => {
@@ -133,10 +125,10 @@ document.addEventListener('DOMContentLoaded', () => {
   // auto reload
   // setInterval(loadMessages(), 2000);
   // add messages
-  // document.getElementById('save').addEventListener('click', (e) => {
-  //   e.preventDefault();
-  //   const msg = document.querySelector('#desc').value;
-  //   const pw = document.querySelector('#pass').value;
-  //   // UI.postMessage(msg, pw);
-  // });
+  document.getElementById('save').addEventListener('click', (e) => {
+    e.preventDefault();
+    const msg = document.querySelector('#desc').value;
+    const pw = document.querySelector('#pass').value;
+    // UI.postMessage(msg, pw);
+  });
 });
