@@ -8,7 +8,7 @@
 #container {
   display: grid;
   grid-template-areas: 
-  'header header header header header header'
+  'logo _ _ _ _ _'
   'menu context context context context context'
   'menu main main main main main'
   'menu footer footer footer footer footer';
@@ -21,8 +21,12 @@
   /* width: 800px; */
   /* max-width: 80%; */
 }
+#app {
+  grid-area: logo;
+  text-align: center;
+}
 .header{
-  grid-area: header;
+  grid-area: context;
   text-align: center;
 }
 #save {
