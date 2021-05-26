@@ -1,12 +1,39 @@
-const bcrypt = require('bcrypt');
+// const bcrypt = require('bcrypt');
 const webhook = 'https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/ikori-chat-app-sbuho/service/Ikori/incoming_webhook'
 const saltRounds = 12;
+
+const hashCode = (str) => {
+  let hash = 0, i, chr;
+  if (str.length === 0) return hash;
+  for (i = 0; i < str.length; i++) {
+    chr   = str.charCodeAt(i);
+    hash  = ((hash << 5) - hash) + chr;
+    hash |= 0; // Convert to 32bit integer
+  }
+  return hash;
+};
+
+const loadXMLDoc = () =>{
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function ()  {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("test").innerHTML =
+      this.responseText;
+    }
+  };
+  xhttp.open("GET", "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/ikori-chat-app-sbuho/service/Ikori/incoming_webhook/messages", true);
+  xhttp.send();
+}
+
+/*
+
 class UI {
   static getMessages() {
-    const url = `${webhook}/messages?page=${page}`
+    let page = 0
+    const url = `${webhook}/messages`
     fetch(url)
       .then((data) => {
-        console.log('GET DATA', data.rows);
+        console.log('GET DATA', data);
         if (data.rows) {
           data.rows.forEach((list) => UI.displayMessages(list.messages));
         }
@@ -74,19 +101,19 @@ class UI {
       .catch((err) => console.log('delete Message: ', err));
   }
 }
-
+*/
 document.addEventListener('DOMContentLoaded', () => {
   console.log('DOM is loaded!')
   // const needUpdate = true;
   // get messages
-  UI.getMessages();
+  loadXMLDoc();
   // auto reload
-  setInterval(UI.getMessages(), 2000);
+  setInterval(loadXMLDoc(), 2000);
   // add messages
-  document.getElementById('save').addEventListener('click', (e) => {
-    e.preventDefault();
-    const msg = document.querySelector('#desc').value;
-    const pw = document.querySelector('#pass').value;
-    UI.postMessage(msg, pw);
-  });
+  // document.getElementById('save').addEventListener('click', (e) => {
+  //   e.preventDefault();
+  //   const msg = document.querySelector('#desc').value;
+  //   const pw = document.querySelector('#pass').value;
+  //   // UI.postMessage(msg, pw);
+  // });
 });

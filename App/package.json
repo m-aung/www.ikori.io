@@ -1,12 +1,13 @@
 {
   "name": "app-assessment-mod-1",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
-  "main": "server.js",
+  "main": "index.html",
   "type": "module",
   "scripts": {
     "merge": "node util/merge.js",
     "start": "node server/server.js",
+    "live": "nodemon ../index.html",
     "build": "webpack",
     "start-dev": "nodemon server/server",
     "dev": "nodemon server/server"
