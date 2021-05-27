@@ -111,6 +111,25 @@ li span {
   margin-top: 0.5em;
   width: 80%;
 }
+.like   {
+  /* display:flex; */
+  /* overflow: auto; */
+  /* justify-content: space-between; */
+  /* margin-right: 30px; */
+ float: right;
+  /* white-space: nowrap;  */
+  /* background-color: red; */
+}
+
+.fa {
+  font-size: 1.5vw;
+  cursor: pointer;
+  user-select: none;
+}
+
+.fa:hover {
+  color: darkblue;
+}
 
 #footer{
   /* grid-area: footer; */
