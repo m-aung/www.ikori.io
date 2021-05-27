@@ -13,31 +13,54 @@ const hashCode = (str) => {
   return hash;
 };
 
+// helper function for creating new element
+const createNewElement = (arg) => {
+  // standard obj = {element:val1, attribute:val2, parentById:val3, parentByClass:val4, attritube_value:val5 , text:val6}
+  
+  const newLine = document.createElement(arg.element) // create a new element
+  newLine.setAttribute(arg.attribute, arg.attritube_value) // set attritube to div node
+  const newText = document.createTextNode(arg.text) // add text to the current node
+  const list = arg.parentById ? document.getElementById(arg.parentById) : document.getElementByClass(arg.parentByClass) // get message div from Dom
+  list.appendChild(newLine).appendChild(newText) // append the new message to message div as a child
+}
+
+
+const test = ({arg1:val1, arg2:val2, arg3:val3}) => {
+  console.log('val1: ' , arg1[val1]);
+  console.log('val2: ' , arg2[val2]);
+  console.log('val3: ', arg3[val3]);
+}
+
 const loadMessages = () =>{
   const xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function ()  {
     if (this.readyState == 4 && this.status == 200) {
-      console.log('response: ', this.response)
+      // console.log('response: ', this.response)
       const data = JSON.parse(this.response) // parse it into json obj
-      data["messages"].forEach((message,index) => {
-        const newLine = document.createElement('div') // create a new div element
-        const att = document.createAttribute("class") // create a new attritube
-        att.value = 'message' // name the attribute
-        newLine.setAttributeNode(att) // set attritube to div node
-        const newText = document.createTextNode(`${message['message']}`) // add text to the current node
-        const list = document.getElementById('message-list') // get message div from Dom
-        list.appendChild(newLine).appendChild(newText) // append the new message to message div as a child
+      data["messages"].forEach((message) => {
+        const newElement = {
+          element:'div',
+          attribute:'class',
+          parentById:'message-list',
+          attritube_value:'message',
+          text:`${message['message']}`
+        }
+        console.log(newElement.attribute)
+        createNewElement(newElement); // create new element
       })
     }
   };
   xhttp.open('GET', `${webhook}/messages?${page}`, true);
   xhttp.send();
 }
-const postMessage = () => {
+const postMessage = (body) => {
   const xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
-
+    if(this.readyState === 4 && this.status === 200){
+      window.alert('message is posted!')
+    }
   }
+  xhttp.open('POST', `${webhook}/new-messages?${body}`, true)
 }
 
 /*
