@@ -8,10 +8,11 @@
 #container {
   display: grid;
   grid-template-areas: 
-  'logo _ _ _ _ _'
+  'logo heading heading heading heading heading'
   'menu context context context context context'
-  'menu main main main main main'
-  'menu footer footer footer footer footer';
+  'blank context context context context context'
+  'blank main main main main main'
+  'footer footer footer footer footer footer';
   /* border: 15px solid; */
   grid-gap: 10px;
   padding: 10px;
@@ -26,7 +27,7 @@
   text-align: center;
 }
 .header{
-  grid-area: context;
+  grid-area: heading;
   text-align: center;
 }
 #save {
@@ -70,9 +71,11 @@ input {
 }
 #nav-bar{
   grid-area: menu;
+  justify-content: space-around;
   list-style: none;
   text-decoration: none;
   text-align: center;
+  margin-top: 1em;
   /* border: 10px solid; */
 }
 #nav-bar li {
@@ -84,15 +87,16 @@ input {
   grid-area: context;
   /* border: 10px solid; */
   /* position: relative; */
-  margin-top: 2em;
+  margin-top: 1em;
   /* background-color: darkgreen; */
   height: 60vh;
   /* width: 100%;  */
-  overflow: hidden;  
+  overflow: scroll;  
 }
 
 .userInput {
   grid-area: main;
+  margin-top: 2em;
 }
 
 .message {
@@ -121,6 +125,10 @@ li span {
   /* background-color: red; */
 }
 
+.like_count {
+  padding-top: 5px;
+}
+
 .fa {
   font-size: 1.5vw;
   cursor: pointer;
@@ -134,6 +142,7 @@ li span {
 #footer{
   /* grid-area: footer; */
   text-align: center;
-  margin-bottom: 5px;
+  
+  margin-top: 1rem;
   /* border: 10px solid; */
 }

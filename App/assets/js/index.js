@@ -23,14 +23,31 @@ const createNewElement = (arg) => {
   const list = arg.parentById ? document.getElementById(arg.parentById) : document.getElementByClass(arg.parentByClass) // get message div from Dom
   list.appendChild(newLine).appendChild(newText) // append the new message to message div as a child
 }
-
+//helper funciton for like/ unlike elements
+const add_like = (...arg) => { 
+  // arguments order -> parent queryselector type, selector value, likeCounts, 
+  const [selector,value,counter] = arg;
+  let count = counter
+  const curElement = document.querySelector(selector); // parent element
+  const likeElement = document.createElement(value) // value
+  likeElement.setAttribute('class', 'like fa fa-thumbs-up')
+  const likeNumber = document.createElement('div')
+  likeNumber.setAttribute('class','like_count')
+  likeNumber.innerHTML = `\t ${count}`
+  likeElement.addEventListener('click', (e)=>{
+    e.preventDefault()
+    count++
+    likeNumber.innerHTML = `\t ${count}`
+  })
+  curElement.appendChild(likeElement).appendChild(likeNumber)
+}
 const loadMessages = () =>{
   const xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function ()  {
     if (this.readyState == 4 && this.status == 200) {
       // console.log('response: ', this.response)
       const data = JSON.parse(this.response) // parse it into json obj
-      console.log(data['message'])
+      // console.log(data['message'])
       data["messages"].forEach((message, index) => {
         const newElement = {
           element:'div',
@@ -42,26 +59,9 @@ const loadMessages = () =>{
         createNewElement(newElement); // create new element
         let likeCounts = 0
         // add unlike button and like button in a function
-        
-        if(message['likes']){
-          const curElement = document.getElementsByClassName('message');
-          const likeElement = document.createElement('i')
-          likeElement.setAttribute('class', 'like fa fa-thumbs-up')
-          likeElement.innerHTML = `\t ${likeCounts}`
-          // console.log(curElement)
-          // console.log(likeElement)
-          likeElement.addEventListener('click', (e)=>{
-            e.preventDefault()
-            // likeElement.parentElement.remove()
-            // console.log(e.parent.class);
-            likeElement.classList.toggle("fa-thumbs-down")
-            likeCounts++
-            let curLikes = likeCounts;
-            likeElement.innerHTML = `\t ${curLikes++}`
-            // console.log(likeCounts)
 
-          })
-          curElement[index].appendChild(likeElement)
+        if(message['likes']){
+          add_like('.message','i',likeCounts)
         }
       })
     }
