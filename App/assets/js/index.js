@@ -43,10 +43,10 @@ const add_like = (...arg) => {
 }
 const loadMessages = () =>{
   const xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function ()  {
-    if (this.readyState == 4 && this.status == 200) {
+  xhttp.onreadystatechange =  () => {
+    if (xhhtp.readyState == 4 && xhttp.status == 200) {
       // console.log('response: ', this.response)
-      const data = JSON.parse(this.response) // parse it into json obj
+      const data = JSON.parse(xhttp.response) // parse it into json obj
       // console.log(data['message'])
       data["messages"].forEach((message, index) => {
         const newElement = {
@@ -60,7 +60,7 @@ const loadMessages = () =>{
         let likeCounts = 0
         // add unlike button and like button in a function
 
-        if(message['likes']){
+        if(message['likes'] && !document.querySelector('i')){
           add_like('.message','i',likeCounts)
         }
       })
@@ -69,14 +69,22 @@ const loadMessages = () =>{
   xhttp.open('GET', `${webhook}/messages?${page}`, true);
   xhttp.send();
 }
-const postMessage = (body) => {
+const postMessage = (text,secret) => {
+  const body = {
+    message:text,
+    password:secret
+  }
   const xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function () {
-    if(this.readyState === 4 && this.status === 200){
+  xhttp.onreadystatechange =  () => {
+    if(xhttp.readyState === 4){
       window.alert('message is posted!')
+      console.log('Request body: ', body)
     }
   }
-  xhttp.open('POST', `${webhook}/new-messages?${body}`, true)
+  xhttp.open('POST', `${webhook}/new-message`,true)
+  // xhttp.setRequestHeader("Accept", "application/json");
+  xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  xhttp.send(`${body}`)
 }
 
 /*
@@ -162,12 +170,13 @@ document.addEventListener('DOMContentLoaded', () => {
   // get messages
   loadMessages();
   // auto reload
-  // setInterval(loadMessages(), 2000);
+  setInterval(loadMessages(), 2000);
   // add messages
   document.getElementById('save').addEventListener('click', (e) => {
     e.preventDefault();
     const msg = document.querySelector('#desc').value;
     const pw = document.querySelector('#pass').value;
+    postMessage(msg,pw)
     // UI.postMessage(msg, pw);
   });
 });
