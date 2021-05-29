@@ -17,30 +17,32 @@ const hashCode = (str) => {
 // helper function for creating new element
 const createNewElement = (arg) => {
   // standard obj = {element:val1, attribute:val2, parentById:val3, parentByClass:val4, attritube_value:val5 , text:val6}
-  
+  const parent = document.createElement(arg.element)
   const newLine = document.createElement(arg.element) // create a new element
-  newLine.setAttribute(arg.attribute, arg.attritube_value) // set attritube to div node
+  parent.setAttribute(arg.attribute, arg.attritube_value) // set attritube to div node
   const newText = document.createTextNode(arg.text) // add text to the current node
-  const list = arg.parentById ? document.getElementById(arg.parentById) : document.getElementByClass(arg.parentByClass) // get message div from Dom
-  list.appendChild(newLine).appendChild(newText) // append the new message to message div as a child
+  const list = arg.parentById ? document.querySelector(`#${arg.parentById}`) : document.querySelector(`.${arg.parentByClass}`) // get message div from Dom
+  list.appendChild(parent).appendChild(newLine).append(newText) // append the new message to message div as a child
+  add_like(parent, 'i', arg.likes)
 }
 //helper funciton for like/ unlike elements
 const add_like = (...arg) => { 
   // arguments order -> parent queryselector type, selector value, likeCounts, 
   const [selector,value,counter] = arg;
   let count = counter
-  const curElement = document.querySelector(selector); // parent element
+  // const curElement = document.querySelector(selector); // parent element
+  const curElement = selector
   const likeElement = document.createElement(value) // value
   likeElement.setAttribute('class', 'like fa fa-thumbs-up')
   const likeNumber = document.createElement('div')
   likeNumber.setAttribute('class','like_count')
-  likeNumber.innerHTML = `\t ${count}`
+  likeNumber.innerHTML = `${count}`
   likeElement.addEventListener('click', (e)=>{
     e.preventDefault()
     count++
-    likeNumber.innerHTML = `\t ${count}`
+    likeNumber.innerHTML = `${count}`
   })
-  curElement.appendChild(likeElement).appendChild(likeNumber)
+  curElement.appendChild(likeElement).append(likeNumber)
 }
 const loadMessages = () =>{
   /*
@@ -62,16 +64,17 @@ const loadMessages = () =>{
             attribute:'class',
             parentById:'message-list',
             attritube_value:'message',
-            text:`${message['message']}`
+            text:`${message['message']}`,
+            likes: data[index]['likes'] | 0
           }
           createNewElement(newElement); // create new element
-          let likeCounts = 0
+          // let likeCounts = 0
           // add unlike button and like button in a function
-          console.log('likes: ',message['likes'])
-          if(message['likes'] && !document.querySelector('i')){
-            console.log('conditional statement from likes: ', message['likes'])
-            add_like('.message','i',likeCounts)
-          }
+          // console.log('likes: ',message['likes'])
+          // if(message['likes'] && !document.querySelector('i')){
+            // console.log('conditional statement from likes: ', message['likes'])
+            // add_like('.message-list','i',likeCounts)
+          // }
         }
         /*
     }

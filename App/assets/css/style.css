@@ -4,6 +4,23 @@
   box-sizing: border-box;
   font-family: Arial, sans-serif;
 }
+body{
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+a {
+  color: blueviolet;
+}
+
+a :hover{
+  color: green;
+}
+
+a :visited{
+  text-decoration: none;
+  color: blueviolet;
+}
 
 #container {
   display: grid;
@@ -21,6 +38,9 @@
   /* margin: 2em auto; */
   /* width: 800px; */
   /* max-width: 80%; */
+}
+.content{
+  grid-area: context;
 }
 #app {
   grid-area: logo;
@@ -142,7 +162,7 @@ li span {
 #footer{
   /* grid-area: footer; */
   text-align: center;
-  
-  margin-top: 1rem;
+  margin-top: auto;
+  /* margin-bottom: 1rem; */
   /* border: 10px solid; */
 }
