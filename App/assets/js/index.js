@@ -113,32 +113,33 @@ const loadMessages = () =>{
 const postMessage = (text,secret) => {
   const body = {
     message:text,
-    password:secret
+    password:secret,
+    like: 0,
+    created_at: new Date()
   }
   // let hashedPassword = password //hashCode(password+secret)
 
-//   fetch(webhook+'/new-message', {
-//     method: 'POST',
-//     body: body, //JSON.stringify(body),
-//     headers: { 'Content-Type': 'application/json' },
-//   })
-//     .then((data) => {
-//       console.log(data);
-//     })
-//     .catch((err) => console.log('Post Message: ', err));
-// }
+  fetch(webhook+'/new-message', {
+    method: 'POST',
+    body: JSON.stringify(body),
+    headers: { 'Content-Type': 'application/json' },
+  })
+    .then((data) => {
+      console.log(data);
+    })
+    .catch((err) => console.log('Post Message: ', err));
 
-  const xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange =  () => {
-    if(xhttp.readyState === 4){
-      // window.alert('message is posted!')
-      console.log('Request body: ', body)
-    }
-  }
-  xhttp.open('POST', `${webhook}/new-message`,true)
-  // xhttp.setRequestHeader("Accept", "application/json");
-  xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-  xhttp.send(`${body}`)
+  // const xhttp = new XMLHttpRequest();
+  // xhttp.onreadystatechange =  () => {
+  //   if(xhttp.readyState === 4){
+  //     // window.alert('message is posted!')
+  //     console.log('Request body: ', body)
+  //   }
+  // }
+  // xhttp.open('POST', `${webhook}/new-message`,true)
+  // // xhttp.setRequestHeader("Accept", "application/json");
+  // xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  // xhttp.send(`${body}`)
 }
 
 /*
